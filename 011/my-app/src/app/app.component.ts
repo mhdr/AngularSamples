@@ -6,15 +6,10 @@ import {Component} from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-
-  isClicked = false;
-  backgroundColor = 'Blue';
-
-  getBackgroundColor() {
-    return 'Green';
-  }
+  servers = [];
 
   onButtonClick() {
-    this.isClicked = true;
+    // just push a date to servers
+    this.servers.push(new Date());
   }
 }

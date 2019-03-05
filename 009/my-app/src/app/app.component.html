@@ -1,0 +1,17 @@
+<label>
+  Name
+  <input type="text" [(ngModel)]="name"/>
+</label>
+
+<div>
+  <input type="button" value="Start" (click)="onButtonClicked()">
+</div>
+
+<!--If-->
+<p *ngIf="isButtonClicked">{{name}}</p>
+
+<!--If Else-->
+<p *ngIf="isButtonClicked;else noName">Hello {{name}}</p>
+<ng-template #noName>
+  <p>No name entered yet</p>
+</ng-template>

@@ -15,7 +15,13 @@ export class InputComponent implements OnInit {
   }
 
   onInputChanged(event: Event) {
-    // todo here
+
+    const target = event.target;
+    // const value = target.value;
+
+    // this.eventBus.statusUpdate.emit(value);
+
+    console.log(target);
   }
 
 }

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {EventBusService} from '../services/event-bus.service';
 
 @Component({
@@ -8,6 +8,8 @@ import {EventBusService} from '../services/event-bus.service';
 })
 export class InputComponent implements OnInit {
 
+  inputText: string;
+
   constructor(private eventBus: EventBusService) {
   }
 
@@ -16,12 +18,8 @@ export class InputComponent implements OnInit {
 
   onInputChanged(event: Event) {
 
-    const target = event.target;
-    // const value = target.value;
-
-    // this.eventBus.statusUpdate.emit(value);
-
-    console.log(target);
+    this.inputText = (event.target as HTMLInputElement).value;
+    this.eventBus.statusUpdate.emit(this.inputText);
   }
 
 }

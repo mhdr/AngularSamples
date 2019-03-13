@@ -14,6 +14,9 @@ export class OutputComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.eventBus.statusUpdate.subscribe((status: any) => {
+      this.output = status;
+    });
   }
 
 }

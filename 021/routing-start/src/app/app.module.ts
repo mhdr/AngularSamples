@@ -15,6 +15,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {AuthService} from './auth.service';
 import {AuthGuard} from './auth.guard';
+import {CanDeactivateGuard} from './can-deactivate.guard';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -25,7 +26,7 @@ const appRoutes: Routes = [
   {
     path: 'servers', canActivateChild: [AuthGuard], component: ServersComponent, children: [
       {path: ':id', component: ServerComponent},
-      {path: ':id/edit', component: EditServerComponent}
+      {path: ':id/edit', component: EditServerComponent, canDeactivate: [CanDeactivateGuard]}
     ]
   },
   {path: 'not-found', component: PageNotFoundComponent},
@@ -49,7 +50,7 @@ const appRoutes: Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [ServersService, AuthGuard, AuthService],
+  providers: [ServersService, AuthGuard, AuthService, CanDeactivateGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {

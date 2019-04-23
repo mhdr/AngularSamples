@@ -13,6 +13,8 @@ import {ServerComponent} from './servers/server/server.component';
 import {ServersService} from './servers/servers.service';
 import {RouterModule, Routes} from '@angular/router';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
+import {AuthService} from './auth.service';
+import {AuthGuard} from './auth.guard';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -21,7 +23,7 @@ const appRoutes: Routes = [
       {path: ':id/:name', component: UserComponent}]
   },
   {
-    path: 'servers', component: ServersComponent, children: [
+    path: 'servers', canActivateChild: [AuthGuard], component: ServersComponent, children: [
       {path: ':id', component: ServerComponent},
       {path: ':id/edit', component: EditServerComponent}
     ]
@@ -47,7 +49,7 @@ const appRoutes: Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [ServersService],
+  providers: [ServersService, AuthGuard, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

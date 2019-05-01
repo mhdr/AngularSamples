@@ -1,3 +1,8 @@
 .container {
   margin-top: 30px;
 }
+
+/*Angular adds these classes to inputs for validation*/
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}

@@ -36,6 +36,12 @@
           </div>
         </div>
         <div>Your replay: {{answer}}</div>
+        <div class="radio" *ngFor="let gender of genders">
+          <label>
+            <input type="radio" required name="gender" ngModel [value]="gender">
+            {{gender}}
+          </label>
+        </div>
         <button class="btn btn-primary" type="submit"
                 [disabled]="!myForm.valid">Submit
         </button>

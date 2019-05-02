@@ -11,6 +11,14 @@ export class AppComponent {
   @ViewChild('myForm') signupForm: NgForm;
   answer: string;
   genders = ['male', 'female'];
+  user = {
+    username: '',
+    email: '',
+    question: '',
+    answer: '',
+    gender: ''
+  };
+  submitted = false;
 
   /**
    * Set values all together
@@ -42,6 +50,13 @@ export class AppComponent {
 
 
   onSubmit() {
-    console.log(this.signupForm);
+    this.user.username = this.signupForm.value.myUserData.username;
+    this.user.email = this.signupForm.value.myUserData.email;
+    this.user.question = this.signupForm.value.secret;
+    this.user.answer = this.signupForm.value.questionAnswer;
+    this.user.gender = this.signupForm.value.gender;
+    this.submitted = true;
+
+    this.signupForm.reset();
   }
 }

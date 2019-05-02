@@ -12,13 +12,33 @@ export class AppComponent {
   answer: string;
   genders = ['male', 'female'];
 
+  /**
+   * Set values all together
+   */
   suggestUserName() {
     const suggestedName = 'Superuser';
+    this.signupForm.setValue({
+      myUserData: {
+        username: suggestedName,
+        email: 'test@test.com'
+      },
+      secret: 'pet',
+      questionAnswer: 'Hello Wolrd',
+      gender: 'male'
+    });
   }
 
-  // onSubmit(form: NgForm) {
-  //   console.log(form);
-  // }
+  /**
+   * Set part of values
+   */
+  overrideUseName() {
+    const suggestedName = 'Superuser';
+    this.signupForm.form.patchValue({
+      myUserData: {
+        username: suggestedName
+      }
+    });
+  }
 
 
   onSubmit() {

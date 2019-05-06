@@ -15,7 +15,8 @@ export class AppComponent implements OnInit {
     this.signupForm = new FormGroup({
       'userData': new FormGroup({
         'username': new FormControl(null, [Validators.required, MyValidators.forbiddenNames]),
-        'email': new FormControl(null, [Validators.required, Validators.email])
+        'email': new FormControl(null, [Validators.required, Validators.email],
+          [MyValidators.forbiddenEmails])
       }),
       'gender': new FormControl('male'), // default value for radiobutton => male
       'hobbies': new FormArray([])

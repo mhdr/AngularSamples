@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ServerService} from './server.service';
 import {Server} from './server';
 import {catchError, map, retry} from 'rxjs/operators';
@@ -9,9 +9,11 @@ import {of} from 'rxjs';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   fetchedServers: Server[];
+  appName = '';
+  appNameServer;
 
   servers = [
     {
@@ -25,6 +27,10 @@ export class AppComponent {
       id: this.generateId()
     }
   ];
+
+  ngOnInit(): void {
+    this.appNameServer = this.server.getAppName();
+  }
 
   constructor(private server: ServerService) {
   }
@@ -81,5 +87,9 @@ export class AppComponent {
         console.log('Error : ' + e);
       }
     });
+  }
+
+  onSaveAppName() {
+    this.server.putAppName(this.appName);
   }
 }

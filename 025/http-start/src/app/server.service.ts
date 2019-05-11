@@ -45,4 +45,17 @@ export class ServerService {
   getServers2(): Observable<Server[]> {
     return this.http.get<Server[]>('https://angularsamples.firebaseio.com/data.json');
   }
+
+  putAppName(name: string) {
+    const appName = {'AppName': name};
+    this.http.put('https://angularsamples.firebaseio.com/data.json', appName).subscribe();
+  }
+
+  getAppName() {
+    return this.http.get('https://angularsamples.firebaseio.com/data.json').pipe(
+      map((value, index) => {
+        return value['AppName'];
+      })
+    );
+  }
 }

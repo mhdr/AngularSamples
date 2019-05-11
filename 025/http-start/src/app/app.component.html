@@ -21,6 +21,17 @@
       <ul class="list-group" *ngFor="let server of servers">
         <li class="list-group-item">{{ server.name }} (ID: {{ server.id }})</li>
       </ul>
+
+      <br><br>
+      <div>
+        App Name : <input type="text" [(ngModel)]="appName"/>
+        &nbsp;
+        <button class="btn btn-default" (click)="onSaveAppName()">Save</button>
+        &nbsp;
+        <p>{{appNameServer | async }}</p>
+      </div>
+
+
     </div>
   </div>
 </div>

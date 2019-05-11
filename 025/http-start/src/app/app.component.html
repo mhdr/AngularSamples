@@ -7,6 +7,16 @@
       <button class="btn btn-primary" (click)="onPostServer()">Post Server</button>
       &nbsp;
       <button class="btn btn-primary" (click)="onPutServer()">Put Server</button>
+      &nbsp;
+      <button class="btn btn-primary" (click)="onGetServer()">Get Server</button>
+      &nbsp;
+      <button class="btn btn-primary" (click)="onGetServer2()">Get Server 2</button>
+      &nbsp;
+      <button class="btn btn-primary" (click)="onGetServer3()">Get Server 3</button>
+      <hr>
+      <div *ngFor="let s of fetchedServers">
+        {{s.name}} , {{s.capacity}} = > {{s.id}}
+      </div>
       <hr>
       <ul class="list-group" *ngFor="let server of servers">
         <li class="list-group-item">{{ server.name }} (ID: {{ server.id }})</li>

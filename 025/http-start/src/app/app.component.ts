@@ -1,5 +1,8 @@
 import {Component} from '@angular/core';
 import {ServerService} from './server.service';
+import {Server} from './server';
+import {catchError, map, retry} from 'rxjs/operators';
+import {of} from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +10,9 @@ import {ServerService} from './server.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+  fetchedServers: Server[];
+
   servers = [
     {
       name: 'Testserver',
@@ -27,8 +33,7 @@ export class AppComponent {
     this.server.postServers(this.servers);
   }
 
-  onPutServer()
-  {
+  onPutServer() {
     this.server.putServers(this.servers);
   }
 
@@ -42,5 +47,39 @@ export class AppComponent {
 
   private generateId() {
     return Math.round(Math.random() * 10000);
+  }
+
+  onGetServer() {
+    this.server.getServers();
+  }
+
+  onGetServer2() {
+    this.server.getServers2().subscribe((value: Server[]) => {
+      this.fetchedServers = value;
+    });
+  }
+
+  onGetServer3() {
+    this.server.getServers2().pipe(
+      retry(3), // Retry up to 3 times before failing
+      map((value: Server[], index: number) => {
+        for (const s of value) {
+          if (s.id === 0) {
+            s.capacity = -1;
+            s.name = '';
+          }
+        }
+
+        return value;
+      }),
+      catchError(err => of([]))
+    ).subscribe({
+      next(v) {
+        console.log('Value : ' + v);
+      },
+      error(e) {
+        console.log('Error : ' + e);
+      }
+    });
   }
 }

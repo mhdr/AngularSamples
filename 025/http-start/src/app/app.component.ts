@@ -3,6 +3,7 @@ import {ServerService} from './server.service';
 import {Server} from './server';
 import {catchError, map, retry} from 'rxjs/operators';
 import {of} from 'rxjs';
+import {HttpClient, HttpEvent, HttpEventType, HttpProgressEvent, HttpRequest} from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -32,7 +33,7 @@ export class AppComponent implements OnInit {
     this.appNameServer = this.server.getAppName();
   }
 
-  constructor(private server: ServerService) {
+  constructor(private server: ServerService, private http: HttpClient) {
   }
 
   onPostServer() {
@@ -91,5 +92,20 @@ export class AppComponent implements OnInit {
 
   onSaveAppName() {
     this.server.putAppName(this.appName);
+  }
+
+  onProgress() {
+    const request = new HttpRequest('GET', 'https://angularsamples.firebaseio.com/data.json',
+      {reportProgress: true});
+
+    this.http.request(request).subscribe(value => {
+      if (value.type === HttpEventType.DownloadProgress) {
+        const newValue = value as HttpProgressEvent;
+        const percent = Math.round(100 * newValue.loaded / newValue.total);
+        console.log(percent);
+      } else if (value.type === HttpEventType.Response) {
+        console.log('File was completely downloaded!');
+      }
+    });
   }
 }

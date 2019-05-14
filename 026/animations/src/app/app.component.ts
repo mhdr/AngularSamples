@@ -4,39 +4,39 @@ import {
   state,
   style,
   animate,
-  transition,
+  transition, useAnimation,
   // ...
 } from '@angular/animations';
+import {bounceIn} from 'ng-animate';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   animations: [
-    trigger('divState', [
-      state('normal', style({
-        'background-color': 'red',
-        transform: 'translateX(0px)'
-      })),
-      state('highlighted', style({
-        'background-color': 'blue',
-        transform: 'translateX(100px)',
-      })),
-      transition('normal => highlighted', [animate(300)]),
-      transition('highlighted => normal', [animate(800)])
-    ])
-  ]
+    trigger('animation1', [transition('1 <=> 2', useAnimation(bounceIn, {
+      params: {timing: 2, delay: 0.05}
+    }))])
+  ],
 })
 export class AppComponent {
   title = 'animations';
-  state = 'normal';
+  state1 = 1;
 
   onAnimate() {
     // switch state
-    if (this.state === 'normal') {
-      this.state = 'highlighted';
+    if (this.state1 === 1) {
+      this.state1 = 2;
     } else {
-      this.state = 'normal';
+      this.state1 = 1;
     }
+  }
+
+  onAnimationStarted(event) {
+    console.log(event);
+  }
+
+  onAnimationDone(event) {
+    console.log(event);
   }
 }

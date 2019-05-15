@@ -4,7 +4,7 @@ import {
   state,
   style,
   animate,
-  transition, useAnimation,
+  transition, useAnimation, keyframes, group,
   // ...
 } from '@angular/animations';
 import {bounceIn} from 'ng-animate';
@@ -15,29 +15,46 @@ import {bounceIn} from 'ng-animate';
   styleUrls: ['./app.component.css'],
   animations: [
     trigger('preventAnimation', [
-      // use an empty animation as parent of the list1 to prevent animation for it
       transition('void => *', [])
     ]),
     trigger('list1', [state('in', style({
-      // this is the final style that the animation goes to it
       opacity: 1,
       transform: 'translateX(0px)'
     })),
-      // void is for items not present in the DOM
       transition('void => *', [
-        style({
-          // this style will be applied before animation starts
-          // so this would be the initial style of element
-          opacity: 0,
-          transform: 'translateX(-100px)'
-        }),
-        animate(300)]),
-      // animation for removing item from DOM
+        animate(1000, keyframes([
+          style({
+            transform: 'translateX(-100px)',
+            opacity: 0,
+            offset: 0
+          }),
+          style({
+            transform: 'translateX(-50px)',
+            opacity: 0.5,
+            offset: 0.2 // 0.3 * 1000 = 300
+          }),
+          style({
+            transform: 'translateX(-20px)',
+            opacity: 1,
+            offset: 0.4
+          }),
+          style({
+            transform: 'translateX(0px)',
+            opacity: 1,
+            offset: 1
+          }),
+        ]))
+      ]),
       transition('* => void', [
-        animate(300, style({
-          opacity: 0,
-          transform: 'translateX(100px)'
-        }))
+        group([
+          animate(300, style({
+            backgroundColor: 'red'
+          })),
+          animate(800, style({
+            opacity: 0,
+            transform: 'translateX(100px)'
+          }))
+        ])
       ])
     ])
   ],

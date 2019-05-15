@@ -1,15 +1,4 @@
 <div class="container">
-  <button class="btn btn-primary" (click)="onAnimate()">Animate</button>
-  <br><br>
-  <div style="width: 100px;height: 100px;background-color: cornflowerblue"
-       [@animation1]="state1"
-       (@animation1.start)="onAnimationStarted($event)"
-       (@animation1.done)="onAnimationDone($event)"
-  >
-
-  </div>
-
-  <br><br>
 
   <div class="row">
     <div class="col-xs-12">
@@ -36,16 +25,4 @@
 
     </div>
   </div>
-  <hr>
-  <div class="row">
-    <div class="col-xs-12">
-      <ul class="list-group">
-        <li
-          class="list-group-item"
-          (click)="onDelete(item)"
-          *ngFor="let item of list">
-          {{ item }}
-        </li>
-      </ul>
-    </div>
-  </div>
+</div>
